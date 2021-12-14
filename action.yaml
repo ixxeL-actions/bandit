@@ -62,7 +62,7 @@ runs:
                  --confidence-level ${{ inputs.confidence }} \
                  --format ${{ inputs.format }} \
                  ${OUTPUT} \
-                 ${{ inputs.exit-zero }} \
+                 ${EXIT_ZERO} \
                  ${{ inputs.working-dir }} | jq -C
         else
           bandit --verbose \
@@ -71,7 +71,7 @@ runs:
                  --confidence-level ${{ inputs.confidence }} \
                  --format ${{ inputs.format }} \
                  ${OUTPUT} \
-                 ${{ inputs.exit-zero }} \
+                 ${EXIT_ZERO} \
                  ${{ inputs.working-dir }}
         fi
         EXIT_CODE="${PIPESTATUS[0]}"
