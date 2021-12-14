@@ -1,0 +1,28 @@
+name: Bandit-CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    container: 
+      image: ixxel/unit-tests-alpine:latest
+    steps:
+    - name: Git clone repo
+      uses: actions/checkout@v2
+    - name: Bandit security linting python
+      uses: ixxeL-actions/bandit@main
+      with:
+        format: 'screen'
+        exit-zero: 'true'
+        security: 'all'
+        confidence: 'all'
+        output-file: ''
+        working-dir: '.'
