@@ -32,6 +32,7 @@ runs:
   steps:
     - id: bandit
       run: |
+        set +e
         echo -e "${BLUE}[ STEP - SECURITY LINTING CODE ] > Code security linting with Bandit.${BLANK}"
         echo -e "${CYAN}[ INFO ] > Bandit version.${BLANK}"
         bandit --version
@@ -43,7 +44,8 @@ runs:
         else
           EXIT_ZERO=""
         fi
-        if [[ -z ${{ inputs.output-file }} ]]
+
+        if [[ -z "${{ inputs.output-file }}" ]]
         then
           echo -e "${CYAN}[ INFO ] > No output file.${BLANK}"
           OUTPUT=""
