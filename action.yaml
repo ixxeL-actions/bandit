@@ -43,34 +43,34 @@ runs:
         else
           EXIT_ZERO=""
         fi
-        if [[ -z ${OUTPUT} ]]
+        if [[ -z ${{ inputs.output-file }} ]]
         then
           echo -e "${CYAN}[ INFO ] > No output file.${BLANK}"
           OUTPUT=""
         else
-          echo -e "${CYAN}[ INFO ] > Output file provided --> ${OUTPUT}.${BLANK}"
-          OUTPUT="--output ${OUTPUT}"
+          echo -e "${CYAN}[ INFO ] > Output file provided --> ${{ inputs.output-file }}.${BLANK}"
+          OUTPUT="--output ${{ inputs.output-file }}"
         fi
 
-        if [[ ${FORMAT} = "json" ]]
+        if [[ ${{ inputs.format }} = "json" ]]
         then
           bandit --verbose \
-                --recursive \
-                --severity-level ${SECURITY} \
-                --confidence-level ${CONFIDENCE} \
-                --format ${FORMAT} \
-                ${OUTPUT} \
-                ${{ inputs.exit-zero }} \
-                ${WORKINGDIR} | jq -C
+                 --recursive \
+                 --severity-level ${{ inputs.security }} \
+                 --confidence-level ${{ inputs.confidence }} \
+                 --format ${{ inputs.format }} \
+                 ${OUTPUT} \
+                 ${{ inputs.exit-zero }} \
+                 ${{ inputs.working-dir }} | jq -C
         else
           bandit --verbose \
-                --recursive \
-                --severity-level ${SECURITY} \
-                --confidence-level ${CONFIDENCE} \
-                --format ${FORMAT} \
-                ${OUTPUT} \
-                ${{ inputs.exit-zero }} \
-                ${WORKINGDIR}
+                 --recursive \
+                 --severity-level ${{ inputs.security }} \
+                 --confidence-level ${{ inputs.confidence }} \
+                 --format ${{ inputs.format }} \
+                 ${OUTPUT} \
+                 ${{ inputs.exit-zero }} \
+                 ${{ inputs.working-dir }}
         fi
         EXIT_CODE="${PIPESTATUS[0]}"
         if [[ ${EXIT_CODE} -ne 0 ]]
