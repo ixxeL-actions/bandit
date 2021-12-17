@@ -1,18 +1,19 @@
+---
 name: Bandit-CI
 on:
   push:
     branches:
-      - main
+    - main
   pull_request:
     branches:
-      - main
+    - main
 jobs:
   test:
     strategy:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    container: 
+    container:
       image: ixxel/unit-tests-alpine:latest
     steps:
     - name: Git clone repo
@@ -20,9 +21,9 @@ jobs:
     - name: Bandit security linting python
       uses: ixxeL-actions/bandit@main
       with:
-        format: 'screen'
+        format: screen
         exit-zero: 'true'
-        security: 'all'
-        confidence: 'all'
+        security: all
+        confidence: all
         output-file: ''
-        working-dir: '.'
+        working-dir: .
